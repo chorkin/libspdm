@@ -673,7 +673,7 @@ bool libspdm_verify_peer_cert_chain_buffer_authority(libspdm_context_t *spdm_con
             /* Debug: print local root cert size, first bytes of local root cert, calculated root hash, and actual root hash from cert chain */
             LIBSPDM_DEBUG((LIBSPDM_DEBUG_INFO, "Cert Index is %d\n", root_cert_index));
             LIBSPDM_DEBUG((LIBSPDM_DEBUG_INFO, "Local root cert size - %zu\n", root_cert_size));
-            display_len = (root_cert_size < 5) ? root_cert_size : 5;
+            display_len = (root_cert_size < 25) ? root_cert_size : 25;
             LIBSPDM_DEBUG((LIBSPDM_DEBUG_INFO, "Local root cert first %d bytes - ", (int)display_len));
             LIBSPDM_INTERNAL_DUMP_DATA(root_cert, display_len);
             LIBSPDM_DEBUG((LIBSPDM_DEBUG_INFO, "\n"));
