@@ -772,6 +772,7 @@ bool libspdm_verify_peer_cert_chain_buffer(libspdm_context_t *spdm_context,
                                            const void **trust_anchor,
                                            size_t *trust_anchor_size)
 {
+    LIBSPDM_DEBUG((LIBSPDM_DEBUG_INFO, "libspdm_verify_peer_cert_chain_buffer\n"));
     bool result;
 
     /*verify peer cert chain integrity*/

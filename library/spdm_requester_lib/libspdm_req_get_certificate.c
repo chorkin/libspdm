@@ -70,6 +70,7 @@ static libspdm_return_t libspdm_try_get_certificate(libspdm_context_t *spdm_cont
                                                     const void **trust_anchor,
                                                     size_t *trust_anchor_size)
 {
+    LIBSPDM_DEBUG((LIBSPDM_DEBUG_INFO, "libspdm_try_get_certificate\n"));
     bool result;
     libspdm_return_t status;
     spdm_get_certificate_request_t *spdm_request;

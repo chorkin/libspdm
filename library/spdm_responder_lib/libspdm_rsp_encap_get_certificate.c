@@ -63,6 +63,9 @@ libspdm_return_t libspdm_process_encap_response_certificate(
     libspdm_context_t *spdm_context, size_t encap_response_size,
     const void *encap_response, bool *need_continue)
 {
+
+    LIBSPDM_DEBUG((LIBSPDM_DEBUG_INFO, "libspdm_process_encap_response_certificate\n"));
+
     const spdm_certificate_response_t *spdm_response;
     size_t spdm_response_size;
     bool result;
