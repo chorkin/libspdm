@@ -649,6 +649,8 @@ bool libspdm_verify_peer_cert_chain_buffer_authority(libspdm_context_t *spdm_con
     const uint8_t *received_root_cert;
     size_t received_root_cert_size;
     bool result;
+    size_t display_len;
+    const uint8_t *cert_chain_root_hash;
 
     root_cert_index = 0;
     root_cert = spdm_context->local_context.peer_root_cert_provision[root_cert_index];
@@ -667,6 +669,22 @@ bool libspdm_verify_peer_cert_chain_buffer_authority(libspdm_context_t *spdm_con
                                "!!! verify_peer_cert_chain_buffer - FAIL (hash calculation) !!!\n"));
                 return false;
             }
+
+            /* Debug: print local root cert size, first bytes of local root cert, calculated root hash, and actual root hash from cert chain */
+            LIBSPDM_DEBUG((LIBSPDM_DEBUG_INFO, "Local root cert size - %zu\n", root_cert_size));
+            display_len = (root_cert_size < 5) ? root_cert_size : 5;
+            LIBSPDM_DEBUG((LIBSPDM_DEBUG_INFO, "Local root cert first %d bytes - ", (int)display_len));
+            LIBSPDM_INTERNAL_DUMP_DATA(root_cert, display_len);
+            LIBSPDM_DEBUG((LIBSPDM_DEBUG_INFO, "\n"));
+
+            LIBSPDM_DEBUG((LIBSPDM_DEBUG_INFO, "Calculated root_cert_hash - "));
+            LIBSPDM_INTERNAL_DUMP_DATA(root_cert_hash, root_cert_hash_size);
+            LIBSPDM_DEBUG((LIBSPDM_DEBUG_INFO, "\n"));
+
+            cert_chain_root_hash = (const uint8_t *)cert_chain_buffer + sizeof(spdm_cert_chain_t);
+            LIBSPDM_DEBUG((LIBSPDM_DEBUG_INFO, "Actual root_cert_hash in cert_chain - "));
+            LIBSPDM_INTERNAL_DUMP_DATA(cert_chain_root_hash, root_cert_hash_size);
+            LIBSPDM_DEBUG((LIBSPDM_DEBUG_INFO, "\n"));
 
             if (libspdm_consttime_is_mem_equal((const uint8_t *)cert_chain_buffer +
                                                sizeof(spdm_cert_chain_t),
