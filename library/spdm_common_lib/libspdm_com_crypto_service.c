@@ -690,6 +690,7 @@ bool libspdm_verify_peer_cert_chain_buffer_authority(libspdm_context_t *spdm_con
             if (libspdm_consttime_is_mem_equal((const uint8_t *)cert_chain_buffer +
                                                sizeof(spdm_cert_chain_t),
                                                root_cert_hash, root_cert_hash_size)) {
+                LIBSPDM_DEBUG((LIBSPDM_DEBUG_INFO, "Cert Index %d Hash Matches\n", root_cert_index));
                 break;
             }
 
