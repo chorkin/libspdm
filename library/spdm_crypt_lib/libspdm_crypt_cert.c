@@ -1493,6 +1493,8 @@ bool libspdm_verify_certificate_chain_buffer(uint32_t base_hash_algo, uint32_t b
 
     cert_chain_data = (const uint8_t *)cert_chain_buffer + sizeof(spdm_cert_chain_t) + hash_size;
     cert_chain_data_size = cert_chain_buffer_size - sizeof(spdm_cert_chain_t) - hash_size;
+
+    
     if (!libspdm_x509_get_cert_from_cert_chain(
             cert_chain_data, cert_chain_data_size, 0, &first_cert_buffer,
             &first_cert_buffer_size)) {
@@ -1500,6 +1502,11 @@ bool libspdm_verify_certificate_chain_buffer(uint32_t base_hash_algo, uint32_t b
                        "!!! VerifyCertificateChainBuffer - FAIL (get root certificate failed)!!!\n"));
         return false;
     }
+
+    
+    LIBSPDM_DEBUG((LIBSPDM_DEBUG_INFO, "First bytes of cert_chain_buffer are :\n"));
+    libspdm_internal_dump_hex(cert_chain_buffer, cert_chain_buffer_size);
+
 
     if (libspdm_is_root_certificate(first_cert_buffer, first_cert_buffer_size)) {
         result = libspdm_hash_all(base_hash_algo, first_cert_buffer, first_cert_buffer_size,
