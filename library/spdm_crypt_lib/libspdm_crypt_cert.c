@@ -1500,6 +1500,9 @@ bool libspdm_verify_certificate_chain_buffer(uint32_t base_hash_algo, uint32_t b
                        "!!! VerifyCertificateChainBuffer - FAIL (get root certificate failed)!!!\n"));
         return false;
     }
+    LIBSPDM_DEBUG((LIBSPDM_DEBUG_INFO,"libspdm_x509_get_cert_from_cert_chain returned length %d with first two bytes %02x%02x\n",
+                   (uint32_t)first_cert_buffer_size,
+                   first_cert_buffer[0], first_cert_buffer[1]));
 
     if (libspdm_is_root_certificate(first_cert_buffer, first_cert_buffer_size)) {
         result = libspdm_hash_all(base_hash_algo, first_cert_buffer, first_cert_buffer_size,
