@@ -317,9 +317,13 @@ static libspdm_return_t libspdm_try_get_certificate(libspdm_context_t *spdm_cont
     } while (remainder_length != 0);
 
     *cert_chain_size = cert_chain_size_internal;
+    LIBSPDM_DEBUG((LIBSPDM_DEBUG_INFO,
+                   "Total Certificate Chain Size Received: 0x%x\n",
+                   (uint32_t)*cert_chain_size));
     LIBSPDM_ASSERT(*cert_chain_size <= SPDM_MAX_CERTIFICATE_CHAIN_SIZE);
 
     if (spdm_context->local_context.verify_peer_spdm_cert_chain != NULL) {
+        LIBSPDM_DEBUG((LIBSPDM_DEBUG_INFO,"verify_peer_spdm_cert_chain\n"));
         result = spdm_context->local_context.verify_peer_spdm_cert_chain (
             spdm_context, slot_id, cert_chain_size_internal, cert_chain,
             trust_anchor, trust_anchor_size);
@@ -328,6 +332,7 @@ static libspdm_return_t libspdm_try_get_certificate(libspdm_context_t *spdm_cont
             goto done;
         }
     } else {
+        LIBSPDM_DEBUG((LIBSPDM_DEBUG_INFO,"libspdm_verify_peer_cert_chain_buffer_integrity\n"));
         result = libspdm_verify_peer_cert_chain_buffer_integrity(
             spdm_context, cert_chain, cert_chain_size_internal);
         if (!result) {
